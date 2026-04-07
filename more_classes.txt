@@ -1,8 +1,0 @@
-﻿net/minecraft/util/parsing/packrat/commands/IdentifierParseRule.class
-net/minecraft/IdentifierException.class
-net/minecraft/util/datafix/fixes/MobSpawnerEntityIdentifiersFix.class
-net/minecraft/resources/Identifier.class
-net/minecraft/util/datafix/fixes/EntityMinecartIdentifiersFix.class
-net/minecraft/commands/arguments/IdentifierArgument.class
-net/minecraft/util/IdentifierPattern.class
-net/minecraft/server/gui/MinecraftServerGui.class

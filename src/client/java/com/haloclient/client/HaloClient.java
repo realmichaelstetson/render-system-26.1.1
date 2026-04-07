@@ -5,8 +5,11 @@ import com.haloclient.client.render.BlurredRoundedRectangleRenderState;
 import com.haloclient.client.render.CaptureManager;
 import com.haloclient.client.render.HaloRenderPipelines;
 import com.haloclient.client.render.RoundedRectangleRenderState;
+import com.haloclient.client.render.animation.Animation;
+import com.haloclient.client.render.animation.Easing;
 import com.haloclient.client.render.font.FontManager;
 import com.haloclient.client.render.font.HaloFontRenderState;
+import com.haloclient.client.util.FrameClock;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.Minecraft;
@@ -25,8 +28,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import org.lwjgl.glfw.GLFW;
 
 public class HaloClient implements ClientModInitializer {
+
+    private static final Animation rectAnimation = new Animation(Easing.EASE_IN_OUT_CUBIC, 300L);
+    private static float targetValue = 1.0f;
 
     @Override
     public void onInitializeClient() {
@@ -34,125 +41,47 @@ public class HaloClient implements ClientModInitializer {
     }
 
     public static void renderRounded(GuiGraphicsExtractor graphics, DeltaTracker deltaTracker) {
+        FrameClock.update();
         // 1. RENDER A BLURRED ROUNDED RECT
         var window = net.minecraft.client.Minecraft.getInstance().getWindow();
-        float w = 100.0f, h = 100.0f;
-        float w2 = 100.0f, h2 = 100.0f;
+        float w = 200.0f, h = 30.0f;
 
-        float x = 10;
-        float x2 = 10;
-        float y = 10;
-        float y2 = 120;
+        float x = (graphics.guiWidth() - w) / 2.0f;
+        float y = 20;
         float radius = 15.0f;
-        float radius2 = 15.0f;
-        float blur = 30.0f;
-        float blur2 = 30.0f;
-        float bloom = 0f;
-        float bloom2 = 5f;
+        float blur = 600.0f;
+        float bloom = 7f;
 
         var textureSetup = CaptureManager.getCaptureTextureSetup();
-        int blurTintColor = ARGB.color(10, 255, 255, 255);
-        int blurTintColor2 = ARGB.color(10, 255, 255, 255);
+        int blurTintColor = ARGB.color(100, 9, 9, 9);
 
-        graphics.guiRenderState.addGuiElement(new BlurredRoundedRectangleRenderState(
-            HaloRenderPipelines.ROUNDED_BLUR,
-            textureSetup,
-            new Matrix3x2f(graphics.pose()),
-            x, y, w, h,
-            blurTintColor,
-            radius,
-            blur,
-            bloom,
-            graphics.scissorStack.peek()
-        ));
-        graphics.guiRenderState.addGuiElement(new BlurredRoundedRectangleRenderState(
-                HaloRenderPipelines.ROUNDED_BLUR,
-                textureSetup,
-                new Matrix3x2f(graphics.pose()),
-                x, 240, w, h,
-                ARGB.color(100, 255, 255, 255),    // Kolor 1 (Czerwony półprzezroczysty)
-                ARGB.color(0, 0, 0, 255),    // Kolor 2 (Niebieski półprzezroczysty)
-                15.0f,                         // Radius
-                20.0f,                         // Blur tła
-                0.0f,                         // Bloom (Glow)
-                45.0f,                         // Kąt gradientu
-                graphics.scissorStack.peek()
-        ));
-        graphics.guiRenderState.addGuiElement(new BlurredRoundedRectangleRenderState(
-                HaloRenderPipelines.ROUNDED_BLUR,
-                textureSetup,
-                new Matrix3x2f(graphics.pose()),
-                120, 240, w, h,
-                ARGB.color(100, 255, 255, 255),    // Kolor 1 (Czerwony półprzezroczysty)
-                ARGB.color(0, 0, 0, 255),    // Kolor 2 (Niebieski półprzezroczysty)
-                15.0f,                         // Radius
-                20.0f,                         // Blur tła
-                7.0f,                         // Bloom (Glow)
-                90.0f,                         // Kąt gradientu
-                graphics.scissorStack.peek()
-        ));
-        graphics.guiRenderState.addGuiElement(new BlurredRoundedRectangleRenderState(
-            HaloRenderPipelines.ROUNDED_BLUR,
-            textureSetup,
-            new Matrix3x2f(graphics.pose()),
-            x2, y2, w2, h2,
-            blurTintColor2,
-            radius2,
-            blur2,
-            bloom2,
-            graphics.scissorStack.peek()
-        ));
+        if (GLFW.glfwGetKey(window.handle(), GLFW.GLFW_KEY_H) == GLFW.GLFW_PRESS) targetValue = 0.0f;
+        if (GLFW.glfwGetKey(window.handle(), GLFW.GLFW_KEY_J) == GLFW.GLFW_PRESS) targetValue = 1.0f;
+        
+        rectAnimation.run(targetValue);
+        float easedScale = rectAnimation.getValue();
+        
+        if (easedScale > 0.0001f) {
 
-        // 2. RENDER A NORMAL ONE ON TOP FOR COMPARISON
-        int color = ARGB.color(100, 50, 150, 255);
-        int color2 = ARGB.color(255, 50, 150, 255);
-        graphics.guiRenderState.addGuiElement(new RoundedRectangleRenderState(
-            HaloRenderPipelines.ROUNDED_RECT,
-            new Matrix3x2f(graphics.pose()),
-            120, 10.0f, 100.0f, 100.0f,
-            color2, color2,
-            10.0f, 0.0f,
-            0.0f, // Angle
-            graphics.scissorStack.peek()
-        ));
+            Matrix3x2f pose = new Matrix3x2f(graphics.pose());
+            float rectCenterX = x + w / 2.0f;
+            float rectCenterY = y + h / 2.0f;
+            pose.translate(rectCenterX, rectCenterY);
+            pose.scale(easedScale);
+            pose.translate(-rectCenterX, -rectCenterY);
 
-        graphics.guiRenderState.addGuiElement(new RoundedRectangleRenderState(
-            HaloRenderPipelines.ROUNDED_RECT,
-            new Matrix3x2f(graphics.pose()),
-            120, 120.0f, 100.0f, 100.0f,
-            color, color,
-            10.0f, 0.0f,
-            7.0f, 0f, 0f, // Shadow params
-            0.0f,         // Angle
-            graphics.scissorStack.peek()
-        ));
-
-        // 3. RENDER GRADIENT RECTS (Now using the unified RoundedRectangleRenderState)
-        graphics.guiRenderState.addGuiElement(new RoundedRectangleRenderState(
-            HaloRenderPipelines.ROUNDED_RECT,
-            new Matrix3x2f(graphics.pose()),
-            230, 10, 100, 100,
-            ARGB.color(255, 255, 255, 255), // White
-            ARGB.color(255, 0, 81, 181),  // Blue
-            15.0f,                         // Radius
-            0.0f,                          // Border
-            0.0f, 0f, 0f,                  // Shadow (Bloom=0)
-            45.0f,                         // Angle (new unified param)
-            graphics.scissorStack.peek()
-        ));
-
-        graphics.guiRenderState.addGuiElement(new RoundedRectangleRenderState(
-            HaloRenderPipelines.ROUNDED_RECT,
-            new Matrix3x2f(graphics.pose()),
-            230, 120, 100, 100,
-            ARGB.color(255, 255, 255, 255), 
-            ARGB.color(255, 0, 81, 181), 
-            15.0f,
-            0.0f,
-            7.0f, 0f, 0f,                  // Bloom=7
-            45.0f,
-            graphics.scissorStack.peek()
-        ));
+            graphics.guiRenderState.addGuiElement(new BlurredRoundedRectangleRenderState(
+                    HaloRenderPipelines.ROUNDED_BLUR,
+                    textureSetup,
+                    pose,
+                    x, y, w, h,
+                    blurTintColor,
+                    radius,
+                    blur,
+                    bloom,
+                    graphics.scissorStack.peek()
+            ));
+        }
 
         // 3. RENDER TEXT
         var interFont = FontManager.getFont("productsans-bold.ttf", 23f);
@@ -161,15 +90,18 @@ public class HaloClient implements ClientModInitializer {
             float textWidth = interFont.getWidth(text);
             float centerX = (graphics.guiWidth() - textWidth) / 2.0f;
 
+            float textY = (graphics.guiHeight() - interFont.getHeight()) / 2.0f;
+            
             graphics.guiRenderState.addGuiElement(new HaloFontRenderState(
                 interFont,
                 text,
                 new Matrix3x2f(graphics.pose()),
-                centerX, 175,
+                centerX, textY,
                 ARGB.color(255, 255, 255, 255),
                 graphics.scissorStack.peek()
             ));
         }
+
 
         // 3. RENDER 3D BOX UNDER PLAYER
         var mc = Minecraft.getInstance();

@@ -1,8 +1,0 @@
-﻿C:\Users\barte\.gradle\caches\modules-2\files-2.1\net.fabricmc.fabric-api\fabric-rendering-v1\16.2.0+bee81f016f\1d608c18452c2bbf66334e7e185237fcffdf89af\fabric-rendering-v1-16.2.0+bee81f016f-sources.jar
-C:\Users\barte\.gradle\caches\modules-2\files-2.1\net.fabricmc.fabric-api\fabric-rendering-v1\16.2.0+bee81f016f\c6b4b1db9e9dcbcdfcab0fdedf0fd0413e87ddf5\fabric-rendering-v1-16.2.0+bee81f016f.jar
-C:\Users\barte\.gradle\caches\modules-2\files-2.1\net.fabricmc.fabric-api\fabric-rendering-v1\16.2.10+0290ad933e\2485bb9579abaada1f556258b823dd9fbb1e3b05\fabric-rendering-v1-16.2.10+0290ad933e.jar
-C:\Users\barte\.gradle\caches\modules-2\files-2.1\net.fabricmc.fabric-api\fabric-rendering-v1\16.2.10+0290ad933e\657de941c907f9b32363371698671e977cd2cec0\fabric-rendering-v1-16.2.10+0290ad933e-sources.jar
-C:\Users\barte\.gradle\caches\modules-2\files-2.1\net.fabricmc.fabric-api\fabric-rendering-v1\23.0.4+10de3da347\1fbe44ce05b5348dcbbe53a150671ca985086d45\fabric-rendering-v1-23.0.4+10de3da347.jar
-C:\Users\barte\.gradle\caches\modules-2\files-2.1\net.fabricmc.fabric-api\fabric-rendering-v1\23.0.4+c7e428fdb3\91617d84bbe0f77ac4915cada805b344dfb85b93\fabric-rendering-v1-23.0.4+c7e428fdb3.jar
-C:\Users\barte\.gradle\caches\modules-2\files-2.1\net.fabricmc.fabric-api\fabric-rendering-v1\3.0.9+1802ada577\a811c1bdf7f3d0e1794ece906d80bf128cb3a356\fabric-rendering-v1-3.0.9+1802ada577-sources.jar
-C:\Users\barte\.gradle\caches\modules-2\files-2.1\net.fabricmc.fabric-api\fabric-rendering-v1\3.0.9+1802ada577\f89d6c01cf6a063610a38b3daceed30fa4107665\fabric-rendering-v1-3.0.9+1802ada577.jar

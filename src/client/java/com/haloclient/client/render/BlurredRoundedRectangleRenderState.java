@@ -41,7 +41,7 @@ public record BlurredRoundedRectangleRenderState(
         @Nullable final ScreenRectangle scissorArea
     ) {
         this(pipeline, textureSetup, pose, x, y, width, height,
-            color, 0,
+            color, color,
             radius, 0.0f,
             blurStrength, bloom, 0.0f,
             scissorArea,

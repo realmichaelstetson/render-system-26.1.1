@@ -1,7 +1,0 @@
-﻿com/mojang/blaze3d/systems/RenderSystem$AutoStorageIndexBuffer$IndexGenerator.class
-com/mojang/blaze3d/systems/RenderSystem$1.class
-net/minecraft/client/gui/components/spectator/SpectatorGui.class
-com/mojang/blaze3d/systems/RenderSystem$GpuAsyncTask.class
-com/mojang/blaze3d/systems/RenderSystem.class
-com/mojang/blaze3d/systems/RenderSystem$AutoStorageIndexBuffer.class
-net/minecraft/client/gui/Gui.class
