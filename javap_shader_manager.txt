@@ -1,0 +1,15 @@
+﻿Compiled from "ShaderManager.java"
+public class net.minecraft.client.renderer.ShaderManager extends net.minecraft.server.packs.resources.SimplePreparableReloadListener<net.minecraft.client.renderer.ShaderManager$Configs> implements java.lang.AutoCloseable {
+  public static final int MAX_LOG_LENGTH;
+  public static final java.lang.String SHADER_PATH;
+  public net.minecraft.client.renderer.ShaderManager(net.minecraft.client.renderer.texture.TextureManager, java.util.function.Consumer<java.lang.Exception>);
+  protected net.minecraft.client.renderer.ShaderManager$Configs prepare(net.minecraft.server.packs.resources.ResourceManager, net.minecraft.util.profiling.ProfilerFiller);
+  protected void apply(net.minecraft.client.renderer.ShaderManager$Configs, net.minecraft.server.packs.resources.ResourceManager, net.minecraft.util.profiling.ProfilerFiller);
+  public java.lang.String getName();
+  public net.minecraft.client.renderer.PostChain getPostChain(net.minecraft.resources.Identifier, java.util.Set<net.minecraft.resources.Identifier>);
+  public void close();
+  public java.lang.String getShader(net.minecraft.resources.Identifier, com.mojang.blaze3d.shaders.ShaderType);
+  protected void apply(java.lang.Object, net.minecraft.server.packs.resources.ResourceManager, net.minecraft.util.profiling.ProfilerFiller);
+  protected java.lang.Object prepare(net.minecraft.server.packs.resources.ResourceManager, net.minecraft.util.profiling.ProfilerFiller);
+  static {};
+}

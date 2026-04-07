@@ -1,0 +1,4 @@
+﻿C:\Users\barte\.gradle\caches\fabric-loom\minecraftMaven\net\minecraft\minecraft-clientonly-deobf\26.1\minecraft-clientonly-deobf-26.1.jar
+C:\Users\barte\.gradle\caches\fabric-loom\minecraftMaven\net\minecraft\minecraft-clientonly-deobf\26.1.1\minecraft-clientonly-deobf-26.1.1.jar
+C:\Users\barte\.gradle\caches\fabric-loom\minecraftMaven\net\minecraft\minecraft-common-deobf\26.1\minecraft-common-deobf-26.1.jar
+C:\Users\barte\.gradle\caches\fabric-loom\minecraftMaven\net\minecraft\minecraft-common-deobf\26.1.1\minecraft-common-deobf-26.1.1.jar

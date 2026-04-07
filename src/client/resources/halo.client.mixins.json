@@ -1,0 +1,17 @@
+{
+	"required": true,
+	"package": "com.haloclient.client.mixin",
+	"compatibilityLevel": "JAVA_25",
+	"client": [
+		"VertexConsumerMixin",
+		"BufferBuilderMixin",
+		"GuiMixin",
+		"GameRendererMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}

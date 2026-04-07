@@ -1,0 +1,30 @@
+﻿
+> Configure project :
+Fabric Loom: 1.15.5
+"Lock for cache='C:\Users\barte\.gradle\caches\fabric-loom', project=':'" is currently held by pid '25132'.
+Run with --info or --debug to show arguments, may reveal sensitive info
+- pid: 25132
+- command: C:\Program Files\Eclipse Adoptium\jdk-25.0.1.8-hotspot\bin\java.exe
+- started at: 2026-04-06T01:31:18.730Z
+- user: DESKTOP-USE3A42\barte
+- parent:
+	- title: 'halo ÔÇô RoundedQueue.java [halo.client]'
+	- pid: 2660
+	- command: C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2025.2\bin\idea64.exe
+	- started at: 2026-04-06T01:21:42.944Z
+	- user: DESKTOP-USE3A42\barte
+	- parent:
+		- title: 'assets ÔÇö Eksplorator plik├│w', 'halo-template-26.1.1.zip ÔÇö Eksplorator plik├│w', 'Program Manager'
+		- pid: 11852
+		- command: C:\WINDOWS\explorer.exe
+		- started at: 2026-04-05T00:17:19.066Z
+		- user: DESKTOP-USE3A42\barte
+Waiting for lock to be released...
+
+> Task :compileJava NO-SOURCE
+> Task :processResources NO-SOURCE
+> Task :classes UP-TO-DATE
+> Task :compileClientJava UP-TO-DATE
+
+BUILD SUCCESSFUL in 2s
+1 actionable task: 1 up-to-date

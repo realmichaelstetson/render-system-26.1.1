@@ -1,0 +1,2 @@
+﻿net/minecraft/client/renderer/GameRenderer.class
+net/minecraft/client/renderer/GameRenderer$1.class
