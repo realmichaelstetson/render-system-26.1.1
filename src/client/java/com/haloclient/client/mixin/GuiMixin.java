@@ -16,7 +16,10 @@ public class GuiMixin {
 
     @Inject(method = "extractRenderState", at = @At("TAIL"))
     private void halo$onAfterExtractRenderState(GuiGraphicsExtractor graphics, DeltaTracker deltaTracker, CallbackInfo ci) {
-        HaloClient.renderRounded(graphics, deltaTracker);
+        HaloClient.renderModules(graphics, deltaTracker);
+        
+        var mc = net.minecraft.client.Minecraft.getInstance();
+
     }
 
 }

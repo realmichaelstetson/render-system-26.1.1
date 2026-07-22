@@ -12,9 +12,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(GameRenderer.class)
 public class GameRendererMixin {
 
+    @Inject(method = "render", at = @At("TAIL"))
+    private void halo$onAfterRender(DeltaTracker deltaTracker, boolean tick, CallbackInfo ci) {
+        // Na samym końcu klatki, po wszystkim - idealne dla NanoVG
+    }
+
     @Inject(method = "renderLevel", at = @At("TAIL"))
     private void halo$onAfterRenderLevel(DeltaTracker deltaTracker, CallbackInfo ci) {
-        // Po wyrenderowaniu poziomu, ale przed GUI - i co najważniejsze na Render Thread!
+        // Po wyrenderowaniu poziomu, ale przed GUI
         CaptureManager.updateCapture(Minecraft.getInstance());
     }
 

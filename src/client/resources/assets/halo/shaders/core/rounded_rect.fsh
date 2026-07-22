@@ -21,7 +21,17 @@ void main() {
     vec2 p = (texCoord - 0.5) * expandedSize;
     vec2 b = rectSize * 0.5;
 
-    float dist = sdRoundedBox(p, b, radius);
+    float cornerMask = shadowProps.w;
+    float r = radius;
+    if (cornerMask == 1.0 && p.x > 0.0) r = 0.0;
+    else if (cornerMask == 2.0 && p.x < 0.0) r = 0.0;
+    else if (cornerMask == 3.0 && p.y < 0.0) r = 0.0;
+    else if (cornerMask == 4.0 && p.y > 0.0) r = 0.0;
+    else if (cornerMask == 5.0 && (p.x > 0.0 || p.y < 0.0)) r = 0.0;
+    else if (cornerMask == 6.0 && (p.x < 0.0 || p.y < 0.0)) r = 0.0;
+    else if (cornerMask == 9.0 && (p.x > 0.0 && p.y > 0.0)) r = 0.0;
+
+    float dist = sdRoundedBox(p, b, r);
     float aa = fwidth(dist);
 
     // 1. Calculate main shape alpha (with optional border)
@@ -33,11 +43,8 @@ void main() {
         mainAlpha = interiorAlpha * 0.9 + borderAlpha; 
     }
 
-    // 3. MIX COLORS FOR GRADIENT with Angle support
-    float gradientAngle = shadowProps.w;
-    float ga = radians(gradientAngle);
-    vec2 gDir = vec2(sin(ga), cos(ga));
-    float t = dot(texCoord - 0.5, gDir) + 0.5;
+    // 3. MIX COLORS FOR GRADIENT with Angle / Direction support
+    float t = (shadowProps.y == 1.0) ? texCoord.x : texCoord.y;
     t = smoothstep(0.0, 1.0, clamp(t, 0.0, 1.0));
     
     vec4 col1 = vertexColor;

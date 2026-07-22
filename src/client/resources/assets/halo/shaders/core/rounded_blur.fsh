@@ -54,6 +54,7 @@ void main() {
     vec2 size = vCustomData.xy;
     float rectRadius = vCustomData.z;
     float bloom = vShadowProps.y;
+    float cornerMask = vShadowProps.w;
 
     // Ponieważ powiększyliśmy siatkę w Javie o bloom z każdej strony:
     vec2 expandedSize = size + vec2(bloom * 2.0);
@@ -62,9 +63,18 @@ void main() {
     // Bounding box samego właściwego prostokąta
     vec2 b = size * 0.5;
 
+    float r = rectRadius;
+    if (cornerMask == 1.0 && p.x > 0.0) r = 0.0;
+    else if (cornerMask == 2.0 && p.x < 0.0) r = 0.0;
+    else if (cornerMask == 3.0 && p.y < 0.0) r = 0.0;
+    else if (cornerMask == 4.0 && p.y > 0.0) r = 0.0;
+    else if (cornerMask == 5.0 && (p.x > 0.0 || p.y < 0.0)) r = 0.0;
+    else if (cornerMask == 6.0 && (p.x < 0.0 || p.y < 0.0)) r = 0.0;
+    else if (cornerMask == 9.0 && (p.x > 0.0 && p.y > 0.0)) r = 0.0;
+
     // SDF dla uciętych rogów
-    vec2 q = abs(p) - b + rectRadius;
-    float dist = length(max(q, 0.0)) + min(max(q.x, q.y), 0.0) - rectRadius;
+    vec2 q = abs(p) - b + r;
+    float dist = length(max(q, 0.0)) + min(max(q.x, q.y), 0.0) - r;
 
     // --- START GRADIENT TINT LOGIC ---
     float gradientAngle = vShadowProps.z;

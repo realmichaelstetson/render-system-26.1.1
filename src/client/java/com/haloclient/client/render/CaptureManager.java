@@ -48,6 +48,23 @@ public class CaptureManager {
         } catch (Exception ignored) {}
     }
 
+    public static void prepareBlurLayer(net.minecraft.client.gui.GuiGraphicsExtractor graphics) {
+        if (graphics != null && graphics.guiRenderState != null) {
+            graphics.guiRenderState.nextStratum();
+            try {
+                graphics.guiRenderState.blurBeforeThisStratum();
+            } catch (Exception ignored) {}
+        }
+    }
+
+    public static void printGuiRenderStateInfo(Object guiRenderState) {
+        if (guiRenderState == null) return;
+        System.out.println("=== GuiRenderState Class: " + guiRenderState.getClass().getName() + " ===");
+        for (java.lang.reflect.Method m : guiRenderState.getClass().getDeclaredMethods()) {
+            System.out.println("  Method: " + m.getName() + " -> " + m.getReturnType().getName() + " params: " + java.util.Arrays.toString(m.getParameterTypes()));
+        }
+    }
+
     public static void cleanup() {
         if (captureTexture != null) {
             captureTexture.close();

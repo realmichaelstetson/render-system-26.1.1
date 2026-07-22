@@ -1,29 +1,48 @@
 plugins {
 	id 'net.fabricmc.fabric-loom' version "${loom_version}"
 	id 'maven-publish'
+	id 'com.gradleup.shadow' version '8.3.5'
 }
 
 version = project.mod_version
 group = project.maven_group
 
 repositories {
-	// Add repositories to retrieve artifacts from in here.
-	// You should only use this when depending on other mods because
-	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
-	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
-	// for more information about repositories.
+	maven {
+		url 'https://repo.hypixel.net/repository/Hypixel'
+	}
+	maven {
+		name "FDD Maven"
+		url "https://maven.firstdark.dev/releases"
+	}
+
+	maven {
+		url 'https://jitpack.io'
+	}
+	maven {
+		url 'https://repo.viaversion.com/'
+	}
+	mavenCentral()
+}
+
+sourceSets {
+	main {
+		java.srcDirs = ['src/client/java']
+		resources.srcDirs = ['src/client/resources']
+	}
 }
 
 loom {
-	splitEnvironmentSourceSets()
-
 	mods {
-		"halo" {
+		"gui" {
 			sourceSet sourceSets.main
-			sourceSet sourceSets.client
 		}
 	}
-
+}
+def lwjglVersion = "3.4.1"
+configurations {
+	shadow
+	implementation.extendsFrom shadow
 }
 
 dependencies {
@@ -33,7 +52,13 @@ dependencies {
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
-	
+
+	shadow "com.github.LabyStudio:java-spotify-api:+"
+	include "com.github.LabyStudio:java-spotify-api:+"
+	shadow "org.ow2.asm:asm:9.6"
+	implementation "org.ow2.asm:asm:9.6"
+	shadow "org.ow2.asm:asm-commons:9.6"
+	implementation "org.ow2.asm:asm-commons:9.6"
 }
 
 processResources {
@@ -64,7 +89,39 @@ jar {
 	from("LICENSE") {
 		rename { "${it}_${project.name}"}
 	}
+
+	from sourceSets.main.output
+
+	manifest {
+		attributes(
+			'Premain-Class': 'com.haloclient.client.agent.HaloAgent',
+			'Agent-Class': 'com.haloclient.client.agent.HaloAgent',
+			'Can-Redefine-Classes': 'true',
+			'Can-Retransform-Classes': 'true'
+		)
+	}
 }
+
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
+tasks.named('shadowJar', ShadowJar) {
+	configurations = [project.configurations.shadow]
+	archiveClassifier.set('shadow')
+	from sourceSets.main.output
+	manifest {
+		attributes(
+			'Premain-Class': 'com.haloclient.client.agent.HaloAgent',
+			'Agent-Class': 'com.haloclient.client.agent.HaloAgent',
+			'Can-Redefine-Classes': 'true',
+			'Can-Retransform-Classes': 'true'
+		)
+	}
+}
+
+// tasks.named('remapJar') {
+// 	dependsOn(shadowJar)
+// 	inputFile.set(shadowJar.archiveFile)
+// }
 
 // configure the maven publication
 publishing {

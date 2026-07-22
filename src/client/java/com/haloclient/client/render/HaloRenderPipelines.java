@@ -2,7 +2,9 @@ package com.haloclient.client.render;
 
 import com.mojang.blaze3d.pipeline.BlendFunction;
 import com.mojang.blaze3d.pipeline.ColorTargetState;
+import com.mojang.blaze3d.pipeline.DepthStencilState;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
+import com.mojang.blaze3d.platform.CompareOp;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormatElement;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -46,12 +48,84 @@ public class HaloRenderPipelines {
                     .build()
     );
 
+    public static final RenderPipeline LIQUID_GLASS = RenderPipelines.register(
+            RenderPipeline.builder(RenderPipelines.MATRICES_PROJECTION_SNIPPET)
+                    .withLocation(Identifier.fromNamespaceAndPath("halo", "pipeline/liquid_glass"))
+                    .withVertexShader(Identifier.fromNamespaceAndPath("halo", "core/liquid_glass"))
+                    .withFragmentShader(Identifier.fromNamespaceAndPath("halo", "core/liquid_glass"))
+                    .withSampler("Sampler0")
+                    .withColorTargetState(new ColorTargetState(BlendFunction.TRANSLUCENT))
+                    .withCull(false)
+                    .withVertexFormat(ROUNDED_RECT_FORMAT, VertexFormat.Mode.QUADS)
+                    .build()
+    );
+
     public static final RenderPipeline FONT = RenderPipelines.register(
             RenderPipeline.builder(RenderPipelines.MATRICES_PROJECTION_SNIPPET)
                     .withLocation(Identifier.fromNamespaceAndPath("halo", "pipeline/font"))
                     .withVertexShader(Identifier.fromNamespaceAndPath("halo", "core/font"))
                     .withFragmentShader(Identifier.fromNamespaceAndPath("halo", "core/font"))
                     .withSampler("Sampler0")
+                    .withColorTargetState(new ColorTargetState(BlendFunction.TRANSLUCENT))
+                    .withCull(false)
+                    .withVertexFormat(ROUNDED_RECT_FORMAT, VertexFormat.Mode.QUADS)
+                    .build()
+    );
+
+    public static final RenderPipeline MSDF_FONT = RenderPipelines.register(
+            RenderPipeline.builder(RenderPipelines.MATRICES_PROJECTION_SNIPPET)
+                    .withLocation(Identifier.fromNamespaceAndPath("halo", "pipeline/msdf_font"))
+                    .withVertexShader(Identifier.fromNamespaceAndPath("halo", "core/msdf_font"))
+                    .withFragmentShader(Identifier.fromNamespaceAndPath("halo", "core/msdf_font"))
+                    .withSampler("Sampler0")
+                    .withColorTargetState(new ColorTargetState(BlendFunction.TRANSLUCENT))
+                    .withCull(false)
+                    .withVertexFormat(ROUNDED_RECT_FORMAT, VertexFormat.Mode.QUADS)
+                    .build()
+    );
+
+
+    public static final RenderPipeline TEXTURE_BLUR = RenderPipelines.register(
+            RenderPipeline.builder(RenderPipelines.MATRICES_PROJECTION_SNIPPET)
+                    .withLocation(Identifier.fromNamespaceAndPath("halo", "pipeline/texture_blur"))
+                    .withVertexShader(Identifier.fromNamespaceAndPath("halo", "core/texture_blur"))
+                    .withFragmentShader(Identifier.fromNamespaceAndPath("halo", "core/texture_blur"))
+                    .withSampler("Sampler0")
+                    .withColorTargetState(new ColorTargetState(BlendFunction.TRANSLUCENT))
+                    .withDepthStencilState(new DepthStencilState(CompareOp.ALWAYS_PASS, false))
+                    .withCull(false)
+                    .withVertexFormat(ROUNDED_RECT_FORMAT, VertexFormat.Mode.QUADS)
+                    .build()
+    );
+
+    public static final RenderPipeline IMAGE = RenderPipelines.register(
+            RenderPipeline.builder(RenderPipelines.MATRICES_PROJECTION_SNIPPET)
+                    .withLocation(Identifier.fromNamespaceAndPath("halo", "pipeline/image"))
+                    .withVertexShader(Identifier.fromNamespaceAndPath("halo", "core/image"))
+                    .withFragmentShader(Identifier.fromNamespaceAndPath("halo", "core/image"))
+                    .withSampler("Sampler0")
+                    .withColorTargetState(new ColorTargetState(BlendFunction.TRANSLUCENT))
+                    .withCull(false)
+                    .withVertexFormat(ROUNDED_RECT_FORMAT, VertexFormat.Mode.QUADS)
+                    .build()
+    );
+
+    public static final RenderPipeline SPINNER = RenderPipelines.register(
+            RenderPipeline.builder(RenderPipelines.MATRICES_PROJECTION_SNIPPET)
+                    .withLocation(Identifier.fromNamespaceAndPath("halo", "pipeline/spinner"))
+                    .withVertexShader(Identifier.fromNamespaceAndPath("halo", "core/rounded_rect"))
+                    .withFragmentShader(Identifier.fromNamespaceAndPath("halo", "core/spinner"))
+                    .withColorTargetState(new ColorTargetState(BlendFunction.TRANSLUCENT))
+                    .withCull(false)
+                    .withVertexFormat(ROUNDED_RECT_FORMAT, VertexFormat.Mode.QUADS)
+                    .build()
+    );
+
+    public static final RenderPipeline CHEVRON = RenderPipelines.register(
+            RenderPipeline.builder(RenderPipelines.MATRICES_PROJECTION_SNIPPET)
+                    .withLocation(Identifier.fromNamespaceAndPath("halo", "pipeline/chevron"))
+                    .withVertexShader(Identifier.fromNamespaceAndPath("halo", "core/rounded_rect"))
+                    .withFragmentShader(Identifier.fromNamespaceAndPath("halo", "core/chevron"))
                     .withColorTargetState(new ColorTargetState(BlendFunction.TRANSLUCENT))
                     .withCull(false)
                     .withVertexFormat(ROUNDED_RECT_FORMAT, VertexFormat.Mode.QUADS)

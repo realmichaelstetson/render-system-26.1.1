@@ -10,4 +10,6 @@ pluginManagement {
 }
 
 // Should match your modid
-rootProject.name = 'halo'
+rootProject.name = 'gui'
+
+

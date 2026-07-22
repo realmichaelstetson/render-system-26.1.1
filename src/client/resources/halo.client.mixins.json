@@ -6,7 +6,25 @@
 		"VertexConsumerMixin",
 		"BufferBuilderMixin",
 		"GuiMixin",
-		"GameRendererMixin"
+		"GameRendererMixin",
+		"GuiRendererMixin",
+		"KeyboardMixin",
+		"EntityRendererMixin",
+		"SharedConstantsMixin",
+		"MouseMixin",
+		"OptionsMixin",
+		"SiemaMixin",
+		"killaura.ClientInputAccessor",
+		"killaura.KeyboardInputMixin",
+		"killaura.LocalPlayerMixin",
+		"killaura.LivingEntityRendererMixin",
+		"killaura.EntityRotationMixin",
+		"killaura.MultiPlayerGameModeMixin",
+		"killaura.MinecraftMixin",
+		"movement.SprintMixin",
+		"movement.SprintInputMixin",
+		"render.CapeLayerMixin",
+		"render.AvatarRendererMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
